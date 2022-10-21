@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 struct cels {
   int coordX;
   int coordY;
 };
 
+void generateRandom();
 void changeCoord(int *coordY, int *coordX);
 void graphField(int coordY, int coordX);
 void sleep(int time);
@@ -14,13 +16,16 @@ int main(){
   struct cels cels;
   cels.coordX = 16;
   cels.coordY = 25;
+	srand (time (0)); 
   graphField(cels.coordY, cels.coordX);
-  while (1) {
+ /* while (1) {
     changeCoord(&cels.coordY, &cels.coordX);
     graphField(cels.coordY, cels.coordX);
     sleep(3);
     
-  }
+  }*/
+	generateRandom();
+	generateRandom();
   return 0;
 }
 
@@ -63,4 +68,13 @@ void sleep(int time) {
   for (long long i = 0; i < (long long)(9 - time) * 100000000; ++i) {
     time = (time + time) / 2;
   }
+}
+
+void generateRandom(){
+	int i, n;
+   n = 5;
+   for( i = 0 ; i < n ; i++ ) {
+      printf("%d\n", rand() % 50);
+   }
+
 }
