@@ -18,7 +18,7 @@ int main(){
   while (1) {
     changeCoord(&cels.coordY, &cels.coordX);
     graphField(cels.coordY, cels.coordX);
-    sleep(1);
+    sleep(3);
     
   }
   return 0;
