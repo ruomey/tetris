@@ -4,22 +4,20 @@
 struct cels {
   int coordX;
   int coordY;
-  int key; // it isnt cel actually srry
 };
 
-void changeCoord(int *coordY, int *coordX, int *key);
+void changeCoord(int *coordY, int *coordX);
 void graphField(int coordY, int coordX);
 void sleep(int time);
-void key_press(int *key);
+int key_press();
 
 int main(){
   struct cels cels;
   cels.coordX = 16;
   cels.coordY = 25;
-  cels.key = 0;
   graphField(cels.coordY, cels.coordX);
-  while (1) {
-    changeCoord(&cels.coordY, &cels.coordX, &cels.key);
+	while (1) {
+    changeCoord(&cels.coordY, &cels.coordX);
     graphField(cels.coordY, cels.coordX);
     sleep(1);
 
@@ -59,44 +57,30 @@ void graphField(int coordY, int coordX){
   printf("\n");
 
 }
-void changeCoord(int *coordY, int *coordX, int *key) {
+void changeCoord(int *coordY, int *coordX) {
     ++*coordY; // always falling down like dollar
-    key_press(*key);
-    if (*key > 0) { // checking key pressed & conditions satisfied
-        if (*key == 1) { // equals going left
-            --*coordX;
-        }
-        else if (*key == 2) { // and going right 
-            ++*coordX;
-        }
-        else {
-            printf("it cannot..");
-        }
-    }
+    int keyCode = key_press();
+    if (keyCode == -1) {
+			--*coordX;
+		} else if (keyCode == 1) {
+			++*coordX;
+		}
 }
 
-void key_press(int *key) {
-    if (key != NULL) {
-        char k[1];
-        int kcode;
-        // *key: 0 - nothing, 1 - left(a), 2 - right(d)
-        scanf_s("%c", &k);
-        kcode = k[0] - '0'; // calculating value of symbol
-
-        if (kcode == 49) {
-            *key = 1;
-        }
-        else if (kcode == 52) {
-            *key = 2;
-        }
-        else {
-            *key = 0;
-        }
-    }
+int key_press() {
+	char key = ' ';
+	int result = 0;
+	key =	getchar();
+	if (key == 'a'){
+		result = -1;
+	} else if (key == 'd') {
+		result = 1;
+	}
+	return result;
 }
-
 void sleep(int time) {
   for (long long i = 0; i < (long long)(9 - time) * 100000000; ++i) {
     time = (time + time) / 2;
   }
+
 }
